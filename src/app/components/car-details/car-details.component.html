@@ -1,0 +1,19 @@
+<table class="table">
+  <thead>
+      <tr>
+          <th>Car Id</th>
+          <th>Brand Name</th>
+          <th>Color Name</th>
+          <th>Model Year</th>
+          <th>DailyPrice</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let carDetail of carDetails">
+          <td>{{carDetail.carId}}</td>
+          <td>{{carDetail.brandName}}</td>
+          <td>{{carDetail.colorName}}</td>
+          <td>{{carDetail.modelYear}}</td>
+          <td>{{carDetail.dailyPrice}} ₺</td>
+      </tr>
+  </tbody>
