@@ -1,19 +1,16 @@
-<table class="table">
-  <thead>
-      <tr>
-          <th>Car Id</th>
-          <th>Brand Name</th>
-          <th>Color Name</th>
-          <th>Model Year</th>
-          <th>DailyPrice</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let carDetail of carDetails">
-          <td>{{carDetail.carId}}</td>
-          <td>{{carDetail.brandName}}</td>
-          <td>{{carDetail.colorName}}</td>
-          <td>{{carDetail.modelYear}}</td>
-          <td>{{carDetail.dailyPrice}} ₺</td>
-      </tr>
-  </tbody>
+<div class="row">
+    <div class="col-md-4"> 
+        <img src="https://localhost:5001//uploads/Images/{{carDetails.imagePath}}">
+    </div>
+    <div class="col-md-12">
+        <ul *ngIf="carDetails" class="list-group">
+            <li class="list-group-item"> <b>Car Id</b> {{ carDetails.carId }}</li>
+            <li class="list-group-item"> <b>Car Name:</b> {{ carDetails.carName }}</li>
+            <li class="list-group-item"> <b>Brand Name:</b> {{ carDetails.brandName }}</li>
+            <li class="list-group-item"> <b>Color Name:</b> {{ carDetails.colorName }}</li>
+            <li class="list-group-item"> <b>Daily Price:</b> {{ carDetails.dailyPrice }}</li>
+        </ul>
+        
+    </div>
+</div>
+

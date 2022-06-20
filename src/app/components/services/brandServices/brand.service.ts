@@ -8,7 +8,7 @@ import { ListResponseModel } from 'src/app/models/listResponseModel';
   providedIn: 'root'
 })
 export class BrandService {
-  apiUrl = 'https://localhost:44338/api/brands/Getall'
+  apiUrl = 'https://localhost:5001/api/brands/Getall'
   constructor(private httpClient: HttpClient) { }
 
   getBrands():Observable<ListResponseModel<Brand>>{

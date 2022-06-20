@@ -9,12 +9,13 @@
       </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let car of cars">
+      <tr *ngFor="let car of cars" >
           <td>{{car.id}}</td>
           <td>{{car.brandId}}</td>
           <td>{{car.modelYear}}</td>
           <td>{{car.colorId}}</td>
           <td>{{car.dailyPrice}} ₺</td>
+          <td><button  routerLink="/cars/carsDetail/{{car.id}}">Detay Sayfasına git</button></td>
       </tr>
   </tbody>
 </table>

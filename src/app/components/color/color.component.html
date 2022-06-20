@@ -1,14 +1,9 @@
-<table class="table">
-  <thead>
-      <tr>
-          <th>Color Id</th>
-          <th>Color Name</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let color of colors">
-          <td>{{color.id}}</td>
-          <td>{{color.name}}</td>
-      </tr>
-  </tbody>
-</table>
+<ul class="list-group">
+    <li [class]="getAllColorClas()" routerLink="/cars">Tüm Ürünler</li>
+    <li (click)="setCurrentColor(color)" routerLink="/cars/color/{{color.id}}"
+    *ngFor="let color of colors" [class]="getCurrentCategoryClass(color)">{{color.name}}</li>
+</ul>
+
+<h5 *ngIf="currentColor">{{currentColor.name}}</h5>
+
+

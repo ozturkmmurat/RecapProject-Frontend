@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/models/car';
+import { CarDetails } from 'src/app/models/carDetails';
 import { CarService } from '../services/carServices/car.service';
 
 @Component({
@@ -17,10 +18,14 @@ export class CarComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       if (params["brandId"]) {
         this.getCarsByBrand(params["brandId"])
-      }else{
+      }else if (params["colorId"]) {
+        this.getCarsByColor(params["colorId"])
+      }
+      else{
         this.getCars()
       }
     })
+    
   }
 
   getCars(){
@@ -40,4 +45,7 @@ export class CarComponent implements OnInit {
       this.cars = response.data
     })
   }
+
+  
+ 
 }

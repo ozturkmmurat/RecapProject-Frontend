@@ -8,7 +8,7 @@ import { Rental } from 'src/app/models/rental';
   providedIn: 'root'
 })
 export class RentalService {
-  apiUrl = 'https://localhost:44338/api/rentals/GetAllRentals';
+  apiUrl = 'https://localhost:5001/api/rentals/GetAllRentals';
   constructor(private httpClient : HttpClient) { }
 
   getAllRental():Observable<ListResponseModel<Rental>>{
