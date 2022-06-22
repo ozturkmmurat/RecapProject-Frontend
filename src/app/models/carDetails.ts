@@ -4,5 +4,7 @@ export interface CarDetails{
   brandName:string,
   colorName:string,
   dailyPrice:number,
-  imagePath:string
+  imagePath:string,
+  rentDate:string,
+  returnDate:string
 }

@@ -8,7 +8,7 @@ import { ColorService } from '../services/colorServices/color.service';
   styleUrls: ['./color.component.css']
 })
 export class ColorComponent implements OnInit {
-
+  filterText="";
   colors: Color[] = [];
   currentColor : Color;
   constructor(private colorService : ColorService, ) { }

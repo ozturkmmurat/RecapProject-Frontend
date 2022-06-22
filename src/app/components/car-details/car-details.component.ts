@@ -11,6 +11,7 @@ import { CarDetailsServices } from '../services/carDetailsServices/car-details-s
 })
 export class CarDetailsComponent implements OnInit {
   carDetails : CarDetails;
+  carDetailsList :CarDetails[];
   constructor(private carDetailsService: CarDetailsServices,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -26,13 +27,14 @@ export class CarDetailsComponent implements OnInit {
 
   getCarDetails(){
     this.carDetailsService.getAllCarDetails().subscribe(response => {
-      this.carDetails = response.data;
+      this.carDetailsList = response.data;
     })
   }
   getCarsIdDetaill(carDetailsId:number){
     this.carDetailsService.getCarsIdDetail(carDetailsId).subscribe(response => {
       this.carDetails = response.data
-      console.log(this.carDetails)
     })
   }
+
+ 
 }
