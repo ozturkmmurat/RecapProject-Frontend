@@ -2,26 +2,29 @@
     <div class="row">
         <div class="col-md-5 mt-3">
             <label for="filterText" class="form-label">Marka Adı</label>
-            <select class="form-select" id="colorselect">
-                <option>
+            <select class="form-select" id="colorselect" [(ngModel)]="brandName">
+                <option value="undefined">
                     Marka Seçiniz
                 </option>
-                <option *ngFor="let carDetails of carsDetailsList">{{carDetails.brandName}}</option>
+                <option *ngFor="let brand of brands" >{{brand.name}}</option>
             </select>
         </div>
-
-        <div class="col-md-5 mt-3">
+            <div class="col-md-5 mt-3">
             <label for="filterText" class="form-label">Renk Adı</label>
-            <select class="form-select" id="colorselect">
-                <option>
+            <select class="form-select" id="colorselect" [(ngModel)]="colorName">
+                <option value="undefined">
                     Renk Seçiniz
                 </option>
-                <option *ngFor="let carDetails of carsDetailsList">{{carDetails.colorName}}</option>
+                <option *ngFor="let color of colors" >{{color.name}}</option>
             </select>
-        </div>
-        <div class="col-md-2 mt-3">
-            <button type="button" class="btn btn-success">Filtrele</button>
-        </div>
+            </div>
+            <div class="col-md-2 mt-5">
+                <button type="button" class="btn btn-success" (click)="getCarDetailsByBrandNameByColorName(brandName,colorName)" >Filtrele</button>
+            </div>
+        
+
+           
+        
         <div class="col-md-12">
             <label for="filterText" class="form-label">Ürün Ara</label>
             <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText"
@@ -34,23 +37,19 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Car Id</th>
-                    <th>Name</th>
+                    <th>Car Name</th>
                     <th>Brand Name</th>
-                    <th>Model Year</th>
                     <th>Color Name</th>
                     <th>DailyPrice</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let car of cars | carfilterPipe:filterText">
-                    <td>{{car.id}}</td>
-                    <td>{{car.name}}</td>
-                    <td>{{car.brandId}}</td>
-                    <td>{{car.modelYear}}</td>
-                    <td>{{car.colorId}}</td>
+                <tr *ngFor="let car of carsDetailsList | carfilterPipe:filterText">
+                    <td>{{car.carName}}</td>
+                    <td>{{car.brandName}}</td>
+                    <td>{{car.colorName}}</td>
                     <td>{{car.dailyPrice}} ₺</td>
-                    <td><button routerLink="/cars/carsDetail/{{car.id}}">Detay Sayfasına git</button></td>
+                    <td><button routerLink="/cars/carsDetail/{{car.carId}}">Detay Sayfasına git</button></td>
                 </tr>
             </tbody>
         </table>

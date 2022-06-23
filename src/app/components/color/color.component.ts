@@ -24,11 +24,7 @@ export class ColorComponent implements OnInit {
   }
   
   setCurrentColor(color : Color){
-    if (color == this.currentColor) {
-      return "list-group-item active"
-    }else{
-      return "list-group-item"
-    }
+    this.currentColor = color;
   }
 
   getAllColorClas(){

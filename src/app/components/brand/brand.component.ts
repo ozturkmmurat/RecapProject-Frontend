@@ -43,4 +43,7 @@ export class BrandComponent implements OnInit {
     }
   }
 
+  clearCurrentBrand(){
+    this.currentBrand = null
+  }
 }

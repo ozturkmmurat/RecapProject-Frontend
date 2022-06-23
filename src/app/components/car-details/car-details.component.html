@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col-md-4"> 
-        <img src="https://localhost:5001//uploads/Images/{{carDetails.imagePath}}">
+    <div align="center"  class="col-md-12 mt-3 mb-3"> 
+        <img height="400" width="800" src="https://localhost:5001//uploads/Images/{{carDetails.imagePath}}">
     </div>
     <div class="col-md-12">
         <ul *ngIf="carDetails" class="list-group">
@@ -9,8 +9,17 @@
             <li class="list-group-item"> <b>Brand Name:</b> {{ carDetails.brandName }}</li>
             <li class="list-group-item"> <b>Color Name:</b> {{ carDetails.colorName }}</li>
             <li class="list-group-item"> <b>Daily Price:</b> {{ carDetails.dailyPrice }}</li>
-        </ul>
+        </ul> 
         
+        <div class="mt-3 mb-3">
+            <input  type="date">
+            
+            <input style="margin-left:2%;"  type="date">
+        </div>
+        <button type="button" class="btn btn-success" >Aracı Kirala</button>
     </div>
+   
+    
 </div>
 
+    

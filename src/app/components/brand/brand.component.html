@@ -8,7 +8,7 @@
   </div>
 
 <ul class="list-group">
-    <li [class]="getAllBrandClass()" routerLink="/cars">Tüm Markalar</li>
+    <li [class]="getAllBrandClass()" (click)="clearCurrentBrand" routerLink="/cars">Tüm Markalar</li>
     <li (click)="setCurrentBrand(brand)" routerLink="/cars/brand/{{brand.id}}"
     *ngFor="let brand of brands | brandFilterPipe:filterText" [class]="getCurrentCategoryClass(brand)">{{brand.name}}</li>
 </ul>
