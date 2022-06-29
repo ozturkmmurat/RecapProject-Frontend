@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-4 mt-5 ml-3" *ngFor="let cartItem of cartItems ">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="https://localhost:5001//uploads/Images/{{cartItem.product.imagePath}}"
+        alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{cartItem.product.carName}}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{cartItem.product.brandName}}</li>
+        <li class="list-group-item">{{cartItem.product.colorName}}</li>
+        <li class="list-group-item">{{cartItem.product.rentDate}}</li>
+        <li class="list-group-item">{{cartItem.product.returnDate}}</li>
+        <li class="list-group-item">{{cartItem.product.dailyPrice}}</li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+TOPLAM ÜCRET: {{totalPrice.amount}}
+<button class="btn btn-success" routerLink="cars/creditCart">Satın Al</button>

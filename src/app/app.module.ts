@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,9 @@ import { NaviComponent } from './components/navi/navi.component';
 import { FilterPipePipe } from './pipes/car-filter-pipe.pipe';
 import { ColorFilterPipePipe } from './pipes/color-filter-pipe.pipe';
 import { BrandFilterPipePipe } from './pipes/brand-filter-pipe.pipe';
+import { CreditCartComponent } from './components/credit-cart/credit-cart/credit-cart.component';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +33,17 @@ import { BrandFilterPipePipe } from './pipes/brand-filter-pipe.pipe';
     NaviComponent,
     FilterPipePipe,
     ColorFilterPipePipe,
-    BrandFilterPipePipe
+    BrandFilterPipePipe,
+    CreditCartComponent,
+    CartSummaryComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

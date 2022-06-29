@@ -8,6 +8,7 @@ import { Color } from 'src/app/models/color';
 import { BrandService } from '../services/brandServices/brand.service';
 import { CarDetailsServices } from '../services/carDetailsServices/car-details-services.service';
 import { CarService } from '../services/carServices/car.service';
+import { CartServiceService } from '../services/cartService/cart-service.service';
 import { ColorService } from '../services/colorServices/color.service';
 
 @Component({
@@ -96,5 +97,7 @@ export class CarComponent implements OnInit {
       this.brands = response.data
     })
   }
+  
+ 
 
 }
