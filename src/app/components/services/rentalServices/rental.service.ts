@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CreditCart } from 'src/app/models/creditCart';
 import { ListResponseModel } from 'src/app/models/listResponseModel';
 import { Rental } from 'src/app/models/rental';
 import { RentCarDto } from 'src/app/models/rentCarDto';
@@ -18,8 +19,8 @@ export class RentalService {
     return this.httpClient.get<ListResponseModel<Rental>>(this.apiUrl);
   }
 
-  Add(rentCarDto : RentCarDto,totalPrice = { amount:0 }):Observable<SingleResponseModel<RentCarDto>>{
-    let newPath = this.apiUrl + "Add"
-    return this.httpClient.post<SingleResponseModel<RentCarDto>>(newPath,{rentCarDto,totalPrice})
+  Add(rental:Rental,creditCart:CreditCart,totalPrice = { amount:0 }){
+    let newPath = this.apiUrl + "Add?amount="+totalPrice.amount
+    return this.httpClient.post(newPath,[rental,creditCart,totalPrice.amount])
   }
 }

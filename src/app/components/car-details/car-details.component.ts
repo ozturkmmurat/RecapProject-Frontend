@@ -25,21 +25,15 @@ export class CarDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       if (params["carsDetailId"]){
         this.getCarsIdDetaill(params["carsDetailId"])
-      }else{
-        this.getCarDetails();
       }
     })
     
   }
-
-  getCarDetails(){
-    this.carDetailsService.getAllCarDetails().subscribe(response => {
-      this.carDetailsList = response.data;
-    })
-  }
   getCarsIdDetaill(carDetailsId:number){
     this.carDetailsService.getCarsIdDetail(carDetailsId).subscribe(response => {
       this.carDetails = response.data
+      
+      console.log(this.carDetails)
       this.fixedPrice = this.carDetails.dailyPrice
     })
   }
@@ -63,13 +57,10 @@ export class CarDetailsComponent implements OnInit {
    car.rentDate =  this.carDetails.rentDate
    car.returnDate = this.carDetails.rentDate
    car.dailyPrice = this.carDetails.dailyPrice
-   
-
     this.cartService.addToCart(car);
 }
 
 calculatePrice(){
-  
    this.amount.totalPrice =+ this.carDetails.dailyPrice
    console.log(this.amount.totalPrice)
   this.cartService.totalAmount(this.amount)
