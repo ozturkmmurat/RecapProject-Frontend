@@ -19,6 +19,8 @@ import { BrandFilterPipePipe } from './pipes/brand-filter-pipe.pipe';
 import { CreditCartComponent } from './components/credit-cart/credit-cart/credit-cart.component';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart/shopping-cart.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,10 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart/
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass:"toastr-bottom-right"
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

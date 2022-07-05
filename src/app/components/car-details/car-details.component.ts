@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarDetails } from 'src/app/models/carDetails';
 import { CartItem } from 'src/app/models/cartItem';
@@ -19,7 +20,7 @@ export class CarDetailsComponent implements OnInit {
   day : number;
   fixedPrice :number;
   amount = { totalPrice:0}
-  constructor(private carDetailsService: CarDetailsServices,private activatedRoute:ActivatedRoute, private cartService:CartServiceService) { }
+  constructor(private carDetailsService: CarDetailsServices,private activatedRoute:ActivatedRoute, private cartService:CartServiceService, private toastrService:ToastrService) { }
   
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -57,7 +58,8 @@ export class CarDetailsComponent implements OnInit {
    car.rentDate =  this.carDetails.rentDate
    car.returnDate = this.carDetails.rentDate
    car.dailyPrice = this.carDetails.dailyPrice
-    this.cartService.addToCart(car);
+   this.cartService.addToCart(car);
+   this.toastrService.success("Ürün sepete eklendi.")
 }
 
 calculatePrice(){
