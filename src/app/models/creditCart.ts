@@ -1,4 +1,4 @@
-export interface CreditCart{
+export interface CreditCard{
     id:number,
     cartNumber:string,
     expirationMonth:string,

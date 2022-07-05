@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreditCart } from 'src/app/models/creditCart';
+import { CreditCard } from 'src/app/models/creditCart';
 import { ListResponseModel } from 'src/app/models/listResponseModel';
 import { Rental } from 'src/app/models/rental';
 import { RentCarDto } from 'src/app/models/rentCarDto';
@@ -19,8 +19,8 @@ export class RentalService {
     return this.httpClient.get<ListResponseModel<Rental>>(this.apiUrl);
   }
 
-  Add(rental:Rental,creditCart:CreditCart,totalPrice = { amount:0 }){
+  Add(rental:Rental,creditCard:CreditCard,totalPrice = { amount:0 }){
     let newPath = this.apiUrl + "Add?amount="+totalPrice.amount
-    return this.httpClient.post(newPath,[rental,creditCart,totalPrice.amount])
+    return this.httpClient.post(newPath,{rental,creditCard})
   }
 }

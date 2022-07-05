@@ -1,6 +1,6 @@
 <div class="row">
-    <div align="center"  class="col-md-12 mt-3 mb-3"> 
-        <img class="card-img-top" src="https://localhost:5001/uploads/Images/{{carDetails.imagePath}}">
+    <div align="center"  class="col-md-12 mt-3 mb-3">
+        <img class="card-img-top"  src="https://localhost:5001/uploads/Images/{{carDetails.imagePath}}">
     </div>
     <div class="col-md-12">
         <ul *ngIf="carDetails" class="list-group">
@@ -9,11 +9,11 @@
             <li class="list-group-item"> <b>Brand Name:</b> {{ carDetails.brandName }}</li>
             <li class="list-group-item"> <b>Color Name:</b> {{ carDetails.colorName }}</li>
             <li class="list-group-item"> <b>Daily Price:</b> {{ fixedPrice }}</li>
-        </ul> 
-        
+        </ul>
+
         <div class="mt-3 mb-3">
             <input id="rentDate" type="date">
-            
+
             <input id="returnDate"  style="margin-left:2%;"  type="date">
         </div>
         <button type="button" (click)="addToCart(carDetails)" (click)="calculateAmount()" (click)="calculatePrice()"  class="btn btn-success" >Aracı Kirala</button>
