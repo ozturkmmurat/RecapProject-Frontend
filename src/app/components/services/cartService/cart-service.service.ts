@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { provideProtractorTestingSupport } from '@angular/platform-browser';
 import { CarDetails } from 'src/app/models/carDetails';
 import { CartItem } from 'src/app/models/cartItem';
 import { CartItems } from 'src/app/models/cartItems';
@@ -36,6 +37,13 @@ export class CartServiceService {
 
   onlyList() {
     return this.totalPrice
+  }
+
+  removeFromCart(carDetails: CarDetails){
+    let item:CartItem = CartItems.find(c=> c.product.carId === carDetails.carId);
+    this.totalPrice.amount -= item.product.dailyPrice
+    CartItems.splice(CartItems.indexOf(item),1)
+    this.onlyList();
   }
 }
 

@@ -29,6 +29,8 @@ export class ShoppingCartComponent implements OnInit {
     this.totalPrice = this.cartService.onlyList()
   }
 
-
+  removeFromCart(carDetails:CarDetails){
+    this.cartService.removeFromCart(carDetails)
+  }
 
 }

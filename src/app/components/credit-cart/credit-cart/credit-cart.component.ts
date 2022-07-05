@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CarDetails } from 'src/app/models/carDetails';
 import { CartItem } from 'src/app/models/cartItem';
@@ -30,11 +30,10 @@ export class CreditCartComponent implements OnInit {
   rental : Rental;
   rentalDto :RentalDto;
   totalPrice = { amount:0 };
-  rentalDtoAddForm: FormGroup;
-  sayi : number
+  rentalDtoAddForm: UntypedFormGroup;
   rentalCarDto: RentCarDto
   constructor(private carDetailsService: CarDetailsServices, private activatedRoute: ActivatedRoute,
-    private cartService: CartServiceService, private rentalService: RentalService, private formBuilder: FormBuilder,private toastrService:ToastrService) { }
+    private cartService: CartServiceService, private rentalService: RentalService, private formBuilder: UntypedFormBuilder,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.createRentalDtoForm()

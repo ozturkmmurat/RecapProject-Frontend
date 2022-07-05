@@ -3,9 +3,11 @@
     Sepetiniz
   </a>
   <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
-    <li ><a class="dropdown-item" *ngFor="let cartItem of cartItems">
+    <li><a class="dropdown-item" *ngFor="let cartItem of cartItems">
       <img  class ="ml-" height="75" width="150" src="https://localhost:5001//uploads/Images/{{cartItem.product.imagePath}}">
-      <span class="badge bg-secondary"></span><a  style="color:black; text-decoration:none; margin-left: 1%;" class="ml-3">Ürün Adı: {{cartItem.product.carName}}   Ürün Fiyatı:{{cartItem.product.dailyPrice}}</a></a>
+      <span class="badge bg-secondary"></span>
+      <a  style="color:black; text-decoration:none; margin-left: 1%;" class="ml-3">Ürün Adı: {{cartItem.product.carName}}   Ürün Fiyatı:{{cartItem.product.dailyPrice}}
+         <span class="badge bg-secondary" (click)="removeFromCart(cartItem.product)">Sil</span></a></a>
         </li>
    
     <li><a class="dropdown-item" routerLink="cars/shoppingcart" >Sepete git</a></li>

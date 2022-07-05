@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CarDetails } from 'src/app/models/carDetails';
 import { CartItem } from 'src/app/models/cartItem';
 import { CartServiceService } from '../services/cartService/cart-service.service';
 
@@ -19,6 +20,10 @@ export class CartSummaryComponent implements OnInit {
 
   getCart(){
     this.cartItems = this.cartService.list();
+  }
+
+  removeFromCart(carDetails:CarDetails){
+    this.cartService.removeFromCart(carDetails)
   }
 
 }

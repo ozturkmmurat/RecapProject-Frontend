@@ -13,9 +13,15 @@
         <li class="list-group-item">{{cartItem.product.returnDate}}</li>
         <li class="list-group-item">{{cartItem.product.dailyPrice}}</li>
       </ul>
-
+          <button (click)="removeFromCart(cartItem.product)">Ürünü Sil</button>
     </div>
   </div>
 </div>
-TOPLAM ÜCRET: {{totalPrice.amount}}
-<button class="btn btn-success" routerLink="cars/creditCart">Satın Al</button>
+<div>
+  <div *ngIf="cartItems[0]">
+    TOPLAM ÜCRET: {{totalPrice.amount}}
+    <button class="btn btn-success" routerLink="cars/creditCart">Satın Al</button>
+  </div>
+  
+
+
