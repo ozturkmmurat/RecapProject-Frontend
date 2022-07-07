@@ -21,6 +21,10 @@ import { CreditCartComponent } from './components/credit-cart/credit-cart/credit
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart/shopping-cart.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarBrandColorAddComponent } from './components/car-brand-color-add/car-brand-color-add.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { BasicLayoutComponent } from './basic-layout/basic-layout.component';
 
 
 @NgModule({
@@ -39,7 +43,10 @@ import { ToastrModule } from 'ngx-toastr';
     BrandFilterPipePipe,
     CreditCartComponent,
     CartSummaryComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    CarBrandColorAddComponent,
+    AdminLayoutComponent,
+    BasicLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +55,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgbModule,
     ToastrModule.forRoot({
       positionClass:"toast-bottom-right"
     })

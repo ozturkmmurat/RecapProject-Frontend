@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Brand } from 'src/app/models/brand';
 import { BrandService } from '../services/brandServices/brand.service';
-
+declare var $:any
 @Component({
   selector: 'app-brand',
   templateUrl: './brand.component.html',
@@ -9,8 +10,10 @@ import { BrandService } from '../services/brandServices/brand.service';
 })
 export class BrandComponent implements OnInit {
   filterText:"";
+  closeResult = '';
   brands: Brand[] = [];
   currentBrand: Brand;
+  
   constructor(private brandService:BrandService) { }
 
   ngOnInit(): void {
@@ -46,4 +49,8 @@ export class BrandComponent implements OnInit {
   clearCurrentBrand(){
     this.currentBrand = null
   }
+
 }
+
+
+

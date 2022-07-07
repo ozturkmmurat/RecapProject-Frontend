@@ -1,8 +1,8 @@
 <div class="filter">
     <div class="row">
         <div class="col-md-5 mt-3">
-            <label for="filterText" class="form-label">Marka Adı</label>
-            <select class="form-select" id="colorselect" [(ngModel)]="brandName">
+            <label for="brandselect" class="form-label">Marka Adı</label>
+            <select class="form-select" id="brandselect" [(ngModel)]="brandName">
                 <option value="undefined">
                     Marka Seçiniz
                 </option>
@@ -10,7 +10,7 @@
             </select>
         </div>
             <div class="col-md-5 mt-3">
-            <label for="filterText" class="form-label">Renk Adı</label>
+            <label for="colorselect" class="form-label">Renk Adı</label>
             <select class="form-select" id="colorselect" [(ngModel)]="colorName">
                 <option value="undefined">
                     Renk Seçiniz
@@ -49,7 +49,7 @@
                     <td>{{car.brandName}}</td>
                     <td>{{car.colorName}}</td>
                     <td>{{car.dailyPrice}} ₺</td>
-                    <td><button  routerLink="/cars/carsDetail/{{car.carId}}">Detay Sayfasına git</button></td>
+                    <td><button  routerLink="cars/carsDetail/{{car.carId}}">Detay Sayfasına git</button></td>
                 </tr>
             </tbody>
         </table>
