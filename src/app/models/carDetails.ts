@@ -5,6 +5,7 @@ export interface CarDetails{
   colorName:string,
   dailyPrice:number,
   imagePath:string,
+  modelYear:Date,
   rentDate:Date,
   returnDate:Date
 }
