@@ -84,10 +84,8 @@ export class CreditCartComponent implements OnInit {
   addRental(){
 
     const product=this.cartItems[0].product;
-    console.log("Product test",product)
     this.rental = {
         carId:product.carId,customerName:product.carName,rentalId:1,rentDate:product.rentDate,returnDate:product.returnDate
     }
-   console.log("DENEME",this.rental);
   }
 }
