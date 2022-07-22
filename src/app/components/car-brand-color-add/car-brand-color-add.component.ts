@@ -20,56 +20,64 @@ import { pipe } from 'rxjs';
 })
 export class CarBrandColorAddComponent implements OnInit {
 
-  
-  carsDetailsList : CarDetails[] = [];
-  car : Car[] = [];
-  colorList : Color [] = [];
-  brandList : Brand [] = [];
-  brandAddForm : FormGroup;
-  carAddForm : FormGroup;
-  constructor(private formBuilder:FormBuilder,private carDetailsService : CarDetailsServices, private colorService : ColorService, private brandService : BrandService,private modalService: NgbModal, private toastrService:ToastrService,
-    private carService : CarService) { }
+
+  carsDetailsList: CarDetails[] = [];
+  car: Car[] = [];
+  colorList: Color[] = [];
+  brandList: Brand[] = [];
+  brandAddForm: FormGroup;
+  carAddForm: FormGroup;
+  colorAddForm: FormGroup;
+  constructor(private formBuilder: FormBuilder, private carDetailsService: CarDetailsServices, private colorService: ColorService, private brandService: BrandService, private modalService: NgbModal, private toastrService: ToastrService,
+    private carService: CarService) { }
 
   ngOnInit(): void {
     this.getCarDetails();
     this.getAllBrands();
     this.getAllColors();
-    this.createBrandAddForm();
     this.createCarAddForm();
+    this.createBrandAddForm();
+    this.createColorAddForm();
   }
 
 
-  createBrandAddForm(){
+  createBrandAddForm() {
     this.brandAddForm = this.formBuilder.group({
-      name:["",Validators.required]
+      name: ["", Validators.required]
     })
   }
 
-  createCarAddForm(){
+  createCarAddForm() {
     this.carAddForm = this.formBuilder.group({
-      name:["",Validators.required],
-      brandId:[,Validators.required],
-      colorId:[,Validators.required],
-      modelYear:["",Validators.required],
-      dailyPrice:["",Validators.required],
-      description:["",Validators.required]
+      name: ["", Validators.required],
+      brandId: [, Validators.required],
+      colorId: [, Validators.required],
+      modelYear: ["", Validators.required],
+      dailyPrice: ["", Validators.required],
+      description: ["", Validators.required]
     })
   }
+  createColorAddForm() {
+    this.colorAddForm = this.formBuilder.group({
+      name: ["", Validators.required]
+    })
 
-  getCarDetails(){
+  }
+
+  getCarDetails() {
     this.carDetailsService.getAllCarDetails().subscribe(response => {
       this.carsDetailsList = response.data;
     })
   }
 
-  getAllColors(){
+  getAllColors() {
     this.colorService.getColors().subscribe(response => {
       this.colorList = response.data
     })
   }
 
 
-  getAllBrands(){
+  getAllBrands() {
     this.brandService.getBrands().subscribe(response => {
       this.brandList = response.data
     })
@@ -82,44 +90,77 @@ export class CarBrandColorAddComponent implements OnInit {
   }
 
 
-  addBrand(){
-    if(this.brandAddForm.valid){
-      let brandModel = Object.assign({},this.brandAddForm.value)
+  addBrand() {
+    if (this.brandAddForm.valid) {
+      let brandModel = Object.assign({}, this.brandAddForm.value)
       this.brandService.add(brandModel).subscribe(response => {
-        this.toastrService.success(response.message,"Başarılı")
-        this.getAllBrands()
-      },(responseError)=>{
-        console.log(responseError.error)
-        if(responseError.error.Errors.length>0){
-          for (let i = 0; i <responseError.error.Errors.length; i++) {
-            this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Doğrulama hatası")
-          }       
-        } 
-      }),catchError((error) => {console.log('Error',error); return EMPTY;})
+        if (response.success) {
+          this.toastrService.success(response.message, "Başarılı")
+          this.getAllBrands()
+        }
+      }, (responseError) => {
+        if (responseError.status == 500) {
+          this.toastrService.error(responseError.error.Message, "Doğrulama hatası")
+        }
+        else if (responseError.error.Errors.length > 0) {
+          for (let i = 0; i < responseError.error.Errors.length; i++) {
+            this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Doğrulama hatası")
+          }
+        }
+      })
     }
-    else{
-      this.toastrService.error("Formunuz eksik","Dikkat")
+    else {
+      this.toastrService.error("Formunuz eksik", "Dikkat")
     }
   }
 
-  addCar(){
-      if(this.carAddForm.valid){
-        let carModel = Object.assign({},this.carAddForm.value)
-        this.carService.add(carModel).subscribe(response => {
-          this.toastrService.success(response.message,"Başarılı")
+  addCar() {
+    if (this.carAddForm.valid) {
+      let carModel = Object.assign({}, this.carAddForm.value)
+      this.carService.add(carModel).subscribe(response => {
+        if (response.success) {
+          this.toastrService.success(response.message, "Başarılı")
           this.getCarDetails()
-        },(responseError) =>{
-          if(responseError.error.Errors.length>0){
-            for (let i = 0; i<responseError.error.Errors.length; i++) {
-              this.toastrService.error(responseError.error.Errors[i].errorMessage,"Doğrulama hatası")
-            }
+        }
+      }, (responseError) => {
+        if (responseError.status == 500) {
+          this.toastrService.error(responseError.error.Message, "Doğrulama hatası")
+        }
+        else if (responseError.error.Errors.length > 0) {
+          for (let i = 0; i < responseError.error.Errors.length; i++) {
+            this.toastrService.error(responseError.error.Errors[i].errorMessage, "Doğrulama hatası")
           }
-        })
-      }
-      else{
-        this.toastrService.error("Formunuz eksik","Dikkat")
-      }
+        }
+      })
+    }
+    else {
+      this.toastrService.error("Formunuz eksik", "Dikkat")
+    }
   }
-  
+
+
+  addColor() {
+    if (this.colorAddForm.valid) {
+      let colorModel = Object.assign({}, this.colorAddForm.value)
+      this.colorService.add(colorModel).subscribe(response => {
+        if (response.success) {
+          this.toastrService.success(response.message, "Başarılı")
+          this.getAllColors()
+        }
+      }, responseError => {
+        if (responseError.status == 500) {
+          this.toastrService.error(responseError.error.Message, "Doğrulama hatası")
+        }
+        else if (responseError.error.Errors.length > 0) {
+          for (let i = 0; i < responseError.error.Errors.length; i++) {
+            this.toastrService.error(responseError.error.Errors[i].errorMessage, "Doğrulama hatası")
+          }
+        }
+      })
+    }
+    else {
+      this.toastrService.error("Formunuz eksik", "Dikkat")
+    }
+  }
 
 }

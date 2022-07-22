@@ -62,8 +62,8 @@
                                 <!-- Example single danger button -->
                                 <div class="col-3">
                                     <h6 for="brandId">Markalar</h6>
-                                    <select id="brandId"  name="brandId" class="form-select" formControlName="brandId">
-                                        <option *ngFor="let brand of brandList"  [ngValue]="brand.id">{{brand.name}}
+                                    <select id="brandId" name="brandId" class="form-select" formControlName="brandId">
+                                        <option *ngFor="let brand of brandList" [ngValue]="brand.id">{{brand.name}}
                                         </option>
                                     </select>
                                 </div>
@@ -94,8 +94,8 @@
                                     <h6>Araç Açıklaması</h6>
                                 </label>
                                 <div class="form-group">
-                                    <input type="text" id="description" formControlName="description" class="form-control"
-                                        placeholder="Araç Adı" />
+                                    <input type="text" id="description" formControlName="description"
+                                        class="form-control" placeholder="Araç Adı" />
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"
-                            (click)="addCar()" >Araç Ekle</button>
+                            (click)="addCar()">Araç Ekle</button>
                     </div>
                 </ng-template>
 
@@ -170,7 +170,7 @@
 
 
         <div class="col-12">
-            <label for="colorName" class="form-label">Renk Tablosu</label>
+            <label for="brandName" class="form-label">Renk Tablosu</label>
             <table class="table">
                 <thead>
                     <tr>
@@ -184,36 +184,36 @@
                 </tbody>
             </table>
 
-            <ng-template #colorContent let-modal>
-                <div class="modal-header popUpTitle">
-                    <h6 class="modal-title " id="modal-basic-title">Yeni Renk Ekle</h6>
-                    <button type="button" class="btn-close" aria-label="Close"
-                        (click)="modal.dismiss('Cross click')"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
+            <form [formGroup]="colorAddForm">
+                <ng-template #colorContet let-modal>
+                    <div class="modal-header popUpTitle">
+                        <h6 class="modal-title " id="modal-basic-title">Yeni Renk Ekle</h6>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
                         <div class="mb-3">
-                            <div class="mb-3"><label for="carName">
+                            <div class="mb-3"><label for="name">
                                     <h6>Renk Adı</h6>
                                 </label>
                                 <div class="form-group">
-                                    <input type="text" id="carName" class="form-control" placeholder="Renk" />
+                                    <input type="text" id="name" formControlName="name" class="form-control"
+                                        placeholder="Renk" />
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-                </div>
-            </ng-template>
-            <button class="btn btn-outline-primary mb-3 btn-lg mt-3 " (click)="openLg(colorContent)">
-                <h6>Renk Ekle</h6>
-            </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"
+                           (click)="addColor()" >Oluştur</button>
+                    </div>
+                </ng-template>
 
+                <button class="btn btn-outline-primary mb-3 btn-lg mt-3 " (click)="openLg(colorContet)">
+                    <h6>Renk Ekle</h6>
+                </button>
+                </form>
         </div>
-
-
 
     </div>
 </div>
