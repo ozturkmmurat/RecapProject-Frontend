@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { BasicLayoutComponent } from './basic-layout/basic-layout.component';
-import { CarBrandColorAddComponent } from './components/car-brand-color-add/car-brand-color-add.component';
-import { CarDetailsComponent } from './components/car-details/car-details.component';
-import { CarComponent } from './components/car/car.component';
-import { CreditCartComponent } from './components/credit-cart/credit-cart/credit-cart.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart/shopping-cart.component';
+import { BasicLayoutComponent } from './components/basic-layout/basic-layout.component';
+import { CarCrudComponent } from './components/login-layout/car-crud/car-crud.component';
+import { CarDetailsComponent } from './components/basic-layout/car-details/car-details.component';
+import { CarComponent } from './components/basic-layout/car/car.component';
+import { CreditCartComponent } from './components/login-layout/credit-cart/credit-cart/credit-cart.component';
+import { ShoppingCartComponent } from './components/basic-layout/shopping-cart/shopping-cart/shopping-cart.component';
+import { BrandComponent } from './components/basic-layout/brand/brand.component';
+import { LoginLayoutComponent } from './components/login-layout/login-layout.component';
+import { BrandCrudComponent } from './components/login-layout/brand-crud/brand-crud.component';
+import { ColorCrudComponent } from './components/login-layout/color-crud/color-crud.component';
 
 const routes: Routes = [
 
+  
   {
-    path: "adminlayout", component: AdminLayoutComponent, children: [
-      { path: "carbrandcoloradd", component: CarBrandColorAddComponent }
-      
+    path: "loginLayout", component: LoginLayoutComponent, children: [
+      {path: "carcrud",component:CarCrudComponent},
+      {path:"brandCrud",component:BrandCrudComponent},
+      {path:"colorCrud",component:ColorCrudComponent}
     ]
   },
   {
@@ -25,7 +30,7 @@ const routes: Routes = [
       { path: "cars/brand/:brandIdDetails/color/:colorIdDetails", component: CarComponent },
       { path: "cars/carsDetail/:carsDetailId", component: CarDetailsComponent },
       { path: "cars/shoppingcart/cars/creditCart", component: CreditCartComponent },
-      { path: "cars/shoppingcart", component: ShoppingCartComponent },
+      { path: "cars/shoppingcart", component: ShoppingCartComponent }
     ]
   }
 ];

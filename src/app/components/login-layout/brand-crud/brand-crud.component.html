@@ -1,0 +1,80 @@
+<div class="filter">
+    <div class="row">
+        <div class="col-12">
+            <label for="brandName" class="form-label">Marka Tablosu</label>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Brand Name</th>
+                        <th>SİL</th>
+                        <th>GÜNCELLE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let brand of brandList">
+                        <td>{{brand.name}}</td>
+                        <td> <button class="btn btn-danger" (click)="deleteBrand(brand)">SİL</button></td>
+                        <td> <button class="btn btn-success" (click)="writeBrand(brand)" (click)="openLg(brandUpdateContent)"  >GÜNCELLE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <form [formGroup]="updateBrandForm">
+                <ng-template #brandUpdateContent let-modal>
+                    <div class="modal-header popUpTitle">
+                        <h6 class="modal-title " id="modal-basic-title">Marka Güncelle</h6>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="name">
+                                    <h6>Marka Adı</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input type="text" id="name" formControlName="name" class="form-control"
+                                        placeholder="Marka" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"
+                            (click)="updateBrand()">Güncelle</button>
+                    </div>
+                </ng-template>
+            </form>
+
+
+
+            <form [formGroup]="brandAddForm">
+                <ng-template #brandContent let-modal>
+                    <div class="modal-header popUpTitle">
+                        <h6 class="modal-title " id="modal-basic-title">Yeni Marka Ekle</h6>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="name">
+                                    <h6>Marka Adı</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input type="text" id="name" formControlName="name" class="form-control"
+                                        placeholder="Marka" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"
+                            (click)="addBrand()">Oluştur</button>
+                    </div>
+                </ng-template>
+
+                <button class="btn btn-outline-primary mb-3 btn-lg mt-3 " (click)="openLg(brandContent)">
+                    <h6>Marka Ekle</h6>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

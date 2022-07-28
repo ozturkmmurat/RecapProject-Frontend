@@ -1,0 +1,19 @@
+<div class="mb-3">
+    <label for="filterText" class="form-label">Marka Ara</label>
+    <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="arama ifadesi giriniz.">
+  </div>
+  
+  <div *ngIf="filterText" class="alert alert-success">
+  {{filterText}} aradınız.
+  </div>
+
+<ul class="list-group">
+    <li [class]="getAllBrandClass()" (click)="clearCurrentBrand" routerLink="/cars">Tüm Markalar</li>
+    <li (click)="setCurrentBrand(brand)" routerLink="/cars/brand/{{brand.id}}"
+    *ngFor="let brand of brands | brandFilterPipe:filterText" [class]="getCurrentCategoryClass(brand)">{{brand.name}}</li>
+</ul>
+
+<h5 *ngIf="currentBrand">{{currentBrand.name}}</h5>
+
+
+	

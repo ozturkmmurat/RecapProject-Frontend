@@ -1,0 +1,216 @@
+<div class="filter">
+    <div class="row">
+        <div class="col-12">
+            <label for="carDetailsName" class="form-label">Araç Tablosu</label>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Brand Name</th>
+                        <th>Model Year</th>
+                        <th>Color Name</th>
+                        <th>DailyPrice</th>
+                        <th>SİL</th>
+                        <th>GÜNCELLE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let car of carsDetailsList">
+                        <td>{{car.carName}}</td>
+                        <td>{{car.brandName}}</td>
+                        <td>{{car.modelYear | date:'dd/MM/yy'}}</td>
+                        <td>{{car.colorName}}</td>
+                        <td>{{car.dailyPrice}} ₺</td>
+                        <td> <button class="btn btn-danger" (click)="deleteCar(car)">SİL</button></td>
+                        <td><button class="btn btn-success" (click)="writeCarDetails(car)" (click)="openLg(carUpdateContent)">GÜNCELLE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Araç Güncelleme -->
+            <form [formGroup]="updateCarForm" >
+                <ng-template #carUpdateContent let-modal >
+                    <div class="modal-header popUpTitle">
+                        <h6 class="modal-title " id="modal-basic-title">Araç Bilgilerini Güncelle</h6>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name">Ürün adı</label>
+                            <div class="form-group">
+                                <input type="text" id="name"  formControlName="name" class="form-control"
+                                    placeholder="Ürün Adı"/>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="dailyPrice">
+                                    <h6>Günlük Araç Fiyatı</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input type="number" id="dailyPrice" formControlName="dailyPrice"
+                                        class="form-control" placeholder="Günlük Fiyat Giriniz." />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="modelYear">
+                                    <h6>Araç Modeli</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input id="modelYear" formControlName="modelYear" type="date">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group mt-1">
+                                <!-- Example single danger button -->
+                                <div class="col-3">
+                                    <h6 for="brandId">Markalar</h6>
+                                    <select id="brandId" name="brandId" class="form-select" formControlName="brandId">
+                                        <option *ngFor="let brand of brandList" [ngValue]="brand.id">{{brand.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group mt-1">
+                                <!-- Example single danger button -->
+                                <div class="form-group mt-1">
+                                    <!-- Example single danger button -->
+                                    <div class="col-3">
+                                        <h6 for="brandId">Renkler</h6>
+                                        <select id="brandId" name="brandId" class="form-select"
+                                            formControlName="colorId">
+                                            <option *ngFor="let color of colorList" [ngValue]="color.id">{{color.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="description">
+                                    <h6>Araç Açıklaması</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input type="text" id="description" formControlName="description"
+                                        class="form-control" placeholder="Araç Adı"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Default file input example</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"
+                            (click)="updateCar()">Araç Güncelle</button>
+                    </div>
+                </ng-template>
+            </form>
+
+
+
+
+            <!-- // Araç ekleme -->
+            <form [formGroup]="carAddForm">
+                <ng-template #carContent let-modal>
+                    <div class="modal-header popUpTitle">
+                        <h6 class="modal-title " id="modal-basic-title">Yeni Araç Ekle</h6>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name">Ürün adı</label>
+                            <div class="form-group">
+                                <input type="text" id="name" formControlName="name" class="form-control"
+                                    placeholder="Ürün Adı" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="dailyPrice">
+                                    <h6>Günlük Araç Fiyatı</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input type="number" id="dailyPrice" formControlName="dailyPrice"
+                                        class="form-control" placeholder="Günlük Fiyat Giriniz." />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="modelYear">
+                                    <h6>Araç Modeli</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input id="modelYear" formControlName="modelYear" type="date">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group mt-1">
+                                <!-- Example single danger button -->
+                                <div class="col-3">
+                                    <h6 for="brandId">Markalar</h6>
+                                    <select id="brandId" name="brandId" class="form-select" formControlName="brandId">
+                                        <option *ngFor="let brand of brandList" [ngValue]="brand.id">{{brand.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group mt-1">
+                                <!-- Example single danger button -->
+                                <div class="form-group mt-1">
+                                    <!-- Example single danger button -->
+                                    <div class="col-3">
+                                        <h6 for="brandId">Renkler</h6>
+                                        <select id="brandId" name="brandId" class="form-select"
+                                            formControlName="colorId">
+                                            <option *ngFor="let color of colorList" [ngValue]="color.id">{{color.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3"><label for="description">
+                                    <h6>Araç Açıklaması</h6>
+                                </label>
+                                <div class="form-group">
+                                    <input type="text" id="description" formControlName="description"
+                                        class="form-control" placeholder="Araç Adı" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Default file input example</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"
+                            (click)="addCar()">Araç Ekle</button>
+                    </div>
+                </ng-template>
+                <button class="btn btn-outline-primary mb-3 btn-lg mt-3 " (click)="openLg(carContent)">
+                    <h6>Yeni Araç Ekle</h6>
+                </button>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
