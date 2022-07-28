@@ -12,7 +12,7 @@ import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 export class CarDetailsService {
   apiUrl = 'https://localhost:5001/api/';
   constructor(private httpClient: HttpClient) { }
-
+ 
   getAllCarDetails():Observable<ListResponseModel<CarDetails>>{
     let newPath = this.apiUrl + "cars/GetCarsDetailDTO"
     return this.httpClient.get<ListResponseModel<CarDetails>>(newPath);
