@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule } from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 
@@ -27,6 +27,11 @@ import { CarCrudComponent } from './components/login-layout/car-crud/car-crud.co
 import { LoginLayoutComponent } from './components/login-layout/login-layout.component';
 import { BrandCrudComponent } from './components/login-layout/brand-crud/brand-crud.component';
 import { ColorCrudComponent } from './components/login-layout/color-crud/color-crud.component';
+import { LoginComponent } from './components/basic-layout/login/login.component';
+import { RegisterComponent } from './components/basic-layout/register/register.component';
+import { UserProfilUpdateComponent } from './components/login-layout/user-profil-update/user-profil-update/user-profil-update.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { UserComponent } from './components/login-layout/user/user/user.component';
 
 
 @NgModule({
@@ -50,7 +55,11 @@ import { ColorCrudComponent } from './components/login-layout/color-crud/color-c
     CarCrudComponent,
     LoginLayoutComponent,
     BrandCrudComponent,
-    ColorCrudComponent
+    ColorCrudComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserProfilUpdateComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +73,9 @@ import { ColorCrudComponent } from './components/login-layout/color-crud/color-c
       positionClass:"toast-bottom-right"
     })
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

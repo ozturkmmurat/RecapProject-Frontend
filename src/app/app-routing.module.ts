@@ -7,18 +7,21 @@ import { CarComponent } from './components/basic-layout/car/car.component';
 import { CreditCartComponent } from './components/login-layout/credit-cart/credit-cart/credit-cart.component';
 import { ShoppingCartComponent } from './components/basic-layout/shopping-cart/shopping-cart/shopping-cart.component';
 import { BrandComponent } from './components/basic-layout/brand/brand.component';
-import { LoginLayoutComponent } from './components/login-layout/login-layout.component';
 import { BrandCrudComponent } from './components/login-layout/brand-crud/brand-crud.component';
 import { ColorCrudComponent } from './components/login-layout/color-crud/color-crud.component';
+import { LoginLayoutComponent } from './components/login-layout/login-layout.component';
+import { LoginComponent } from './components/basic-layout/login/login.component';
+import { RegisterComponent } from './components/basic-layout/register/register.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
 
   
   {
     path: "loginLayout", component: LoginLayoutComponent, children: [
-      {path: "carcrud",component:CarCrudComponent},
-      {path:"brandCrud",component:BrandCrudComponent},
-      {path:"colorCrud",component:ColorCrudComponent}
+      {path: "carcrud",component:CarCrudComponent, canActivate:[LoginGuard]},
+      {path:"brandCrud",component:BrandCrudComponent, canActivate:[LoginGuard]},
+      {path:"colorCrud",component:ColorCrudComponent, canActivate:[LoginGuard]}
     ]
   },
   {
@@ -29,8 +32,10 @@ const routes: Routes = [
       { path: "cars/color/:colorId", component: CarComponent },
       { path: "cars/brand/:brandIdDetails/color/:colorIdDetails", component: CarComponent },
       { path: "cars/carsDetail/:carsDetailId", component: CarDetailsComponent },
-      { path: "cars/shoppingcart/cars/creditCart", component: CreditCartComponent },
-      { path: "cars/shoppingcart", component: ShoppingCartComponent }
+      { path: "cars/shoppingcart/cars/creditCart", component: CreditCartComponent, canActivate:[LoginGuard] },
+      { path: "cars/shoppingcart", component: ShoppingCartComponent},
+      { path: "register", component:RegisterComponent},
+      { path: "login", component: LoginComponent},
     ]
   }
 ];
