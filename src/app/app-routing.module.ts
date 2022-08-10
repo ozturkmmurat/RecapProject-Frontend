@@ -13,6 +13,7 @@ import { LoginLayoutComponent } from './components/login-layout/login-layout.com
 import { LoginComponent } from './components/basic-layout/login/login.component';
 import { RegisterComponent } from './components/basic-layout/register/register.component';
 import { LoginGuard } from './guards/login.guard';
+import { UserProfilUpdateComponent } from './components/login-layout/user-profil-update/user-profil-update/user-profil-update.component';
 
 const routes: Routes = [
 
@@ -21,7 +22,8 @@ const routes: Routes = [
     path: "loginLayout", component: LoginLayoutComponent, children: [
       {path: "carcrud",component:CarCrudComponent, canActivate:[LoginGuard]},
       {path:"brandCrud",component:BrandCrudComponent, canActivate:[LoginGuard]},
-      {path:"colorCrud",component:ColorCrudComponent, canActivate:[LoginGuard]}
+      {path:"colorCrud",component:ColorCrudComponent, canActivate:[LoginGuard]},
+      { path: "userprofilupdate", component:UserProfilUpdateComponent, canActivate:[LoginGuard]}
     ]
   },
   {

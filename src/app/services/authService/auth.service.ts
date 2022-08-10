@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, observable } from 'rxjs';
 import { LoginModel } from 'src/app/models/loginModel';
 import { registerModel } from 'src/app/models/registerModel';
 import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 import { TokenModel } from 'src/app/models/tokenModel';
 import { User } from 'src/app/models/user';
+import { UserUpdate } from 'src/app/models/userUpdate';
 import { LocalStorageService } from '../localStorageService/local-storage.service';
 
 @Injectable({
@@ -19,6 +21,7 @@ export class AuthService {
   jwtHelper: JwtHelperService = new JwtHelperService();
   userToken: any;
   decodedToken: any;
+  user:User
 
   constructor(private httpClient: HttpClient, private localStorageService:LocalStorageService, private toastrService : ToastrService, private router:Router) { }
 
@@ -33,7 +36,6 @@ export class AuthService {
       this.decodedToken = this.jwtHelper.decodeToken(response.body.data.token);
       console.log(this.decodedToken)
       console.log(this.getUserId());
-      this.router.navigate([""]);
     }, errorResponse => {
       this.toastrService.error(errorResponse.error)
     });
@@ -69,10 +71,10 @@ export class AuthService {
   decodeToken(token: string) {
     return this.jwtHelper.decodeToken(token);
   }
-
+ 
   getUserWithJWT(): User {
+    
     let token = this.decodeToken(this.getToken());
-
     if (token != null) {
       let user = {
         id:
@@ -93,4 +95,20 @@ export class AuthService {
   }
 
 
+
+  getTokenData(): any {
+      let tokenData = this.decodeToken(this.getToken());
+      if(tokenData != null){
+        let user = {
+          id:
+          this.jwtHelper.decodeToken(this.getToken()?.toString())["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
+        firstName:this.jwtHelper.decodeToken(this.getToken()?.toString())["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        lastName:this.jwtHelper.decodeToken(this.getToken()?.toString())["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"]
+        }
+
+        return user
+      }
+   
+  }
+  
 }

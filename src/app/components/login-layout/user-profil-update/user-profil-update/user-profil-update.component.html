@@ -1,1 +1,78 @@
-<p>user-profil-update works!</p>
+
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-5">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">{{user.firstName}} {{user.lastName}}</h5>
+              <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3 mt-2">
+                  <p class="mb-0" for="firstName">Ad</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="firstName" formControlName="firstName" value="{{user.firstName}}" placeholder="Ad">
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3 mt-2">
+                  <p class="mb-0">Soyad</p>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="lastName"  value="{{user.lastName}}" placeholder="Soyad">
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3 mt-2">
+                  <p class="mb-0">E-mail</p>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="email"  value="{{user.email}}" placeholder="E-mail">
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3 mt-2">
+                  <p class="mb-0">Mevcut Şifre</p>
+                </div>
+                <div class="col-sm-9 mt-2">
+                    <input type="password" class="form-control" formControlName="oldPassword"  placeholder="Mevcut Şifre">
+                </div>
+                <div class="col-sm-3 mt-2">
+                  <p class="mb-0">Yeni Şifre</p>
+                </div>
+                <div class="col-sm-9 mt-2">
+                    <input type="password" formControlName="newPassword"  class="form-control" placeholder="Yeni Şifre">
+                </div>
+                <div class="col-sm-3 mt-2">
+                  <p class="mb-0">Yeni Şifre Tekrar</p>
+                </div>
+                <div class="col-sm-9 mt-2">
+                    <input type="password" [(ngModel)]="againNewPassword" class="form-control"  placeholder="Yeni Şifre Tekrar">
+                </div>
+              </div>
+              
+              <hr>
+              <div class="row">
+                <div class="col-sm-9 mt-4">
+                    <button type="button" (click)="updateUser()" class="btn btn-outline-primary ms-1">Güncelle</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
