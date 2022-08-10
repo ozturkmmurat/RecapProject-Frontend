@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { LocalStorageService } from 'src/app/services/localStorageService/local-storage.service';
-import { UserService } from 'src/app/services/userService/user.service';
 
 @Component({
   selector: 'app-navi',
@@ -12,17 +10,15 @@ import { UserService } from 'src/app/services/userService/user.service';
   styleUrls: ['./navi.component.css']
 })
 export class NaviComponent implements OnInit {
+  user$: Observable<User>;
 
-
-  user: User;
-  number : number
-  sub:Subscription
-  constructor(private localStorage: LocalStorageService, private authService: AuthService, private userService: UserService
-    ,private router:Router) { }
+  constructor(
+    private localStorage: LocalStorageService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
-    this.getByTokenData();
-    // this.getByUser()
+    this.checkUser()
   }
 
   isAuthenticatedToken() {
@@ -32,29 +28,13 @@ export class NaviComponent implements OnInit {
       return false;
     }
   }
-  getByUser() {
-    const id =+ this.authService.getUserWithJWT()?.id ?? 0;
-    if (id >0) {
-      this.sub = this.userService.getByUserId(id).subscribe(response => {
-        this.user = response.data
-      })
-    }
-   
-  }
- 
-
-  getByTokenData(){
-    if(this.isAuthenticatedToken()){
-      this.user = this.authService.getTokenData()
-      console.log(this.user)
-    }
-    
+  checkUser() {
+    this.user$ = this.authService.currentUser$;
+    this.authService.currentUser$.subscribe(console.log);
   }
 
   logOut() {
     this.authService.logOut()
-    this.sub?.unsubscribe();
-    this.router.navigate(["login"])
   }
 
 }
