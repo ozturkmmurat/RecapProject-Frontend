@@ -9,7 +9,7 @@ import { registerModel } from 'src/app/models/registerModel';
 import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 import { TokenModel } from 'src/app/models/tokenModel';
 import { User } from 'src/app/models/user';
-import { UserUpdate } from 'src/app/models/userUpdate';
+import { UserForUpdateDto } from 'src/app/models/UserForUpdateDto';
 import { LocalStorageService } from '../localStorageService/local-storage.service';
 
 @Injectable({
@@ -47,14 +47,11 @@ export class AuthService {
     let token = this.decodeToken(this.getToken());
     if (token != null) {
       let user = {
-        id:
-          +token[
-          Object.keys(token).filter(t => t.endsWith('nameidentifier'))[0]
-          ],
+        id: this.jwtHelper.decodeToken(this.getToken()?.toString())["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
         email: token.email,
         status: Boolean(token.status),
-        firstName: token.firstName,
-        lastName: token.lastName
+        firstName: this.jwtHelper.decodeToken(this.getToken()?.toString())["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        lastName: this.jwtHelper.decodeToken(this.getToken()?.toString())["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"]
 
       };
       this._currentUser$.next(user);
@@ -68,10 +65,12 @@ export class AuthService {
     this.loginForToken(loginUser)
       .subscribe(
         response => {
-          this.toastrService.info(response.body.message)
-          this.setToken(response.body.data.token);
-          this.userToken = response.body.data.token;
-          this.decodedToken = this.jwtHelper.decodeToken(response.body.data.token);
+          this.toastrService.info(response.message)
+          this.localStorageService.add("token",response.data.token);
+          this.localStorageService.add("refreshToken",response.data.refreshToken)
+          this.localStorageService.add("expiration",response.data.expiration)
+          this.userToken = response.data.token;
+          this.decodedToken = this.jwtHelper.decodeToken(response.data.token);
           this.setCurrentUser();
           this.router.navigate(["/"]);
         },
@@ -82,8 +81,13 @@ export class AuthService {
 
   }
 
+  refreshTokenLogin(tokenModel:string){
+    let newPath = this.apiUrl + "refreshTokenLogin?refreshToken="+tokenModel;
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(newPath,null)
+  }
+
   loginForToken(loginModel: LoginModel) {
-    return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "login", loginModel, { observe: 'response' })
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "login", loginModel)
   }
 
   register(registerModel: registerModel) {
@@ -94,8 +98,12 @@ export class AuthService {
     return this.localStorageService.getItem("token")
   }
 
-  setToken(token: any) {
-    return this.localStorageService.add("token", token)
+  getRefreshToken(){
+    return this.localStorageService.getItem("refreshToken")
+  }
+
+  getTokenExpiration(){
+    return this.localStorageService.getItem("expiration")
   }
 
   getUserId() {
@@ -104,7 +112,10 @@ export class AuthService {
 
   logOut() {
     this._currentUser$.next(null);
-    return this.localStorageService.remove("token");
+    this.router.navigate(["/login"]);
+    this.localStorageService.remove("token");
+    this.localStorageService.remove("refreshToken");
+    this.localStorageService.remove("expiration");
   }
 
   decodeToken(token: string) {

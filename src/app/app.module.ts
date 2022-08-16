@@ -30,8 +30,8 @@ import { ColorCrudComponent } from './components/login-layout/color-crud/color-c
 import { LoginComponent } from './components/basic-layout/login/login.component';
 import { RegisterComponent } from './components/basic-layout/register/register.component';
 import { UserProfilUpdateComponent } from './components/login-layout/user-profil-update/user-profil-update/user-profil-update.component';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UserComponent } from './components/login-layout/user/user/user.component';
+import { AuthInterceptor } from './interceptors/Auth/auth.interceptor';
 
 
 @NgModule({

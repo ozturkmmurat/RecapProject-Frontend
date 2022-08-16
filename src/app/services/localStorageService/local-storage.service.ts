@@ -19,6 +19,11 @@ export class LocalStorageService {
     return localStorage.removeItem(key);
   }
 
+  update(key : string, value : string){
+    localStorage.removeItem(key);
+    localStorage.setItem(key,value);
+  }
+
   isAuthenticated() {
     if (localStorage.getItem("token")){
       return true;

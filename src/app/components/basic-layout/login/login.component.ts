@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
-import { UserUpdate } from 'src/app/models/userUpdate';
+import { UserForUpdateDto } from 'src/app/models/UserForUpdateDto';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { UserService } from 'src/app/services/userService/user.service';
 
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   test: FormGroup;
-  user:UserUpdate;
+  user:UserForUpdateDto;
   constructor(private router:Router, private formBuilder: FormBuilder, private authService: AuthService, private toastrService: ToastrService, private userService:UserService) { }
 
   ngOnInit(): void {
@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
       console.log(this.loginForm.value);
       let loginModel = Object.assign({}, this.loginForm.value)
       this.authService.login(loginModel)
-      this.router.navigate([""]);
     }
   }
 
