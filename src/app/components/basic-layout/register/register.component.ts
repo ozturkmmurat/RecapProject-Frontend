@@ -10,35 +10,37 @@ import { AuthService } from 'src/app/services/authService/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm:FormGroup
-  constructor(private formBuilder:FormBuilder, private authService: AuthService, private toastrService:ToastrService) { }
+  registerForm: FormGroup
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.createRegisterForm();
   }
 
 
-  createRegisterForm(){
-    this.registerForm =  this.formBuilder.group({
-      firstName:["",Validators.required],
-      lastName:["",Validators.required],
-      email:["",Validators.required],
-      password: ["",Validators.required]
+  createRegisterForm() {
+    this.registerForm = this.formBuilder.group({
+      firstName: ["", Validators.required],
+      lastName: ["", Validators.required],
+      email: ["", Validators.required],
+      password: ["", Validators.required]
     })
   }
 
-
-  register(){
-    if(this.registerForm.valid){
-      let registerModel = Object.assign({},this.registerForm.value)
+  register() {
+    if (this.registerForm.valid) {
+      let registerModel = Object.assign({}, this.registerForm.value)
       this.authService.register(registerModel).subscribe(response => {
-      if(response.success){
-        this.toastrService.info(response.message)
-        localStorage.setItem("token",response.data.token)
-        localStorage.setItem("expiration",response.data.expiration)
-        console.log(response);
-      }
-      },responseError => {
+        if (response.success) {
+          this.toastrService.info(response.message)
+          localStorage.setItem("token", response.data.token)
+          localStorage.setItem("expiration", response.data.expiration)
+          console.log(response);
+        }
+      }, responseError => {
         this.toastrService.error(responseError.error)
       })
     }

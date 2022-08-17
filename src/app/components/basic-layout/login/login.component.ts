@@ -16,8 +16,13 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   test: FormGroup;
-  user:UserForUpdateDto;
-  constructor(private router:Router, private formBuilder: FormBuilder, private authService: AuthService, private toastrService: ToastrService, private userService:UserService) { }
+  user: UserForUpdateDto;
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService, 
+    private toastrService: ToastrService, 
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.createLoginForm()
@@ -36,12 +41,5 @@ export class LoginComponent implements OnInit {
       let loginModel = Object.assign({}, this.loginForm.value)
       this.authService.login(loginModel)
     }
-  }
-
-  getByUser() {
-    this.userService.getByUserId(this.authService.getUserId()).subscribe(response => {
-      this.user = response.data
-      console.log(this.user)
-    })
   }
 }

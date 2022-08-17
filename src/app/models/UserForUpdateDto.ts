@@ -1,5 +1,5 @@
 export interface UserForUpdateDto{
-    userId:number;
+    id:number;
     firstName:string;
     lastName:string;
     oldPassword:string;

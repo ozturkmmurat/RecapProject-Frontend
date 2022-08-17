@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { LocalStorageService } from 'src/app/services/localStorageService/local-storage.service';
+import { UserService } from 'src/app/services/userService/user.service';
 
 @Component({
   selector: 'app-navi',
@@ -15,6 +16,7 @@ export class NaviComponent implements OnInit {
   constructor(
     private localStorage: LocalStorageService,
     private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -29,8 +31,8 @@ export class NaviComponent implements OnInit {
     }
   }
   checkUser() {
-    this.user$ = this.authService.currentUser$;
-    this.authService.currentUser$.subscribe(console.log);
+    this.user$ = this.userService.currentUser$;
+    this.userService.currentUser$.subscribe(console.log);
   }
 
   logOut() {

@@ -32,5 +32,17 @@ export class LocalStorageService {
       return false;
     }
   }
+  
+  getToken() {
+    return this.getItem("token")
+  }
+
+  getRefreshToken(){
+    return this.getItem("refreshToken")
+  }
+
+  getTokenExpiration(){
+    return this.getItem("expiration")
+  }
 
 }
