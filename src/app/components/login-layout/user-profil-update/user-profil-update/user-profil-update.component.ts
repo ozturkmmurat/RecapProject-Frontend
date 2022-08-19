@@ -27,28 +27,30 @@ export class UserProfilUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkUser();
-    this.updatedUserForm()
-    this.writeUserForm()
+    this.updatedUserForm();
+    this.writeUserForm();
+    
   }
 
   updatedUserForm() {
     this.user$.subscribe(data => {
+      console.log("data",data)
       this.updateUserForm = this.formBuilder.group({
-        userId: [Number(data.id), Validators.required],
-        firstName: [null, Validators.required],
-        lastName: [null, Validators.required],
+        userId: [Number(data?.id), Validators.required],
+        firstName: ["", Validators.required],
+        lastName: ["", Validators.required],
         oldPassword: [],
         newPassword: [],
-        email: [null, Validators.required],
+        email: ["", Validators.required],
         againNewPassword: []
       })
     })
   }
 
   writeUserForm() {
-    this.userService.currentUser$.subscribe(data => {
+    this.user$.subscribe(data => {
       this.updateUserForm.patchValue({
-        id: data.id, firstName: data.firstName, lastName:data.lastName, email: data.email
+        id: data?.id, firstName: data?.firstName, lastName:data?.lastName, email: data?.email
       })
     })
     
@@ -67,8 +69,11 @@ export class UserProfilUpdateComponent implements OnInit {
       .subscribe(response => {
         console.log(response)
         this.toastrService.success(response.message, "Güncelleme başarılı")
+        this.userService.setCurrentUser()
         this.checkUser()
         this.writeUserForm()
+        
+        
       })
     if (userModel.newPassword == this.againNewPassword && userModel.newPassword != null) {
       this.userService.update(userModel)
@@ -78,18 +83,14 @@ export class UserProfilUpdateComponent implements OnInit {
             return of();
           }))
         .subscribe(response => {
-          console.log(response)
           this.toastrService.success(response.message, "Güncelleme başarılı")
           this.checkUser()
+          this.writeUserForm()
         })
     }
   }
 
   checkUser() {
     this.user$ = this.userService.currentUser$;
-    this.userService.currentUser$.subscribe(console.log);
   }
-
-
-
 }

@@ -22,10 +22,8 @@ export class AuthService {
     private httpClient: HttpClient,
     private localStorageService: LocalStorageService,
     private toastrService: ToastrService,
-    private router: Router,
-    private userService: UserService
+    private router: Router
   ) {
-    this.setTokenCurrentUser()
   }
 
 
@@ -67,34 +65,31 @@ export class AuthService {
 
 
 
-  login(loginUser: LoginModel) {
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-Type", "application/json");
-    this.loginForToken(loginUser)
-      .subscribe(
-        response => {
-          this.toastrService.info(response.message)
-          this.localStorageService.add("token", response.data.token);
-          this.localStorageService.add("refreshToken", response.data.refreshToken)
-          this.localStorageService.add("expiration", response.data.expiration)
-          this.userToken = response.data.token;
-          this.decodedToken = this.jwtHelper.decodeToken(response.data.token);
-          this.userService.setCurrentUser()
-          this.router.navigate(["/"]);
-        },
-        errorResponse => {
-          this.toastrService.error(errorResponse.error)
-        }
-      );
+  // login(loginUser: LoginModel) {
+  //   let headers = new HttpHeaders();
+  //   headers = headers.append("Content-Type", "application/json");
+  //   this.loginForToken(loginUser)
+  //     .subscribe(
+  //       response => {
+  //         this.toastrService.info(response.message)
+  //         this.localStorageService.add("token", response.data.token);
+  //         this.localStorageService.add("refreshToken", response.data.refreshToken)
+  //         this.localStorageService.add("expiration", response.data.expiration)
+  //         this.userToken = response.data.token;
+  //         this.decodedToken = this.jwtHelper.decodeToken(response.data.token);
+  //         this.userService.setCurrentUser()
+  //         this.router.navigate(["/"]);
+  //       },
+  //       errorResponse => {
+  //         this.toastrService.error(errorResponse.error)
+  //       }
+  //     );
 
-  }
+  // }
 
   logOut() {
-    this.userService._currentUser$.next(null);
-    this.router.navigate(["/login"]);
-    this.localStorageService.remove("token");
-    this.localStorageService.remove("refreshToken");
-    this.localStorageService.remove("expiration");
+    this.localStorageService.signOut();
+    this.router.navigate(["/"]);
   }
 
   refreshTokenLogin(tokenModel: string) {
@@ -102,7 +97,7 @@ export class AuthService {
     return this.httpClient.post<SingleResponseModel<TokenModel>>(newPath, null)
   }
 
-  loginForToken(loginModel: LoginModel) {
+  login(loginModel: LoginModel) {
     return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "login", loginModel)
   }
 

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
 import { UserForUpdateDto } from 'src/app/models/UserForUpdateDto';
 import { AuthService } from 'src/app/services/authService/auth.service';
+import { LocalStorageService } from 'src/app/services/localStorageService/local-storage.service';
 import { UserService } from 'src/app/services/userService/user.service';
 
 @Component({
@@ -22,7 +23,9 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService, 
     private toastrService: ToastrService, 
-    private userService: UserService) { }
+    private localStorageService: LocalStorageService,
+    private userService:UserService
+    ) { }
 
   ngOnInit(): void {
     this.createLoginForm()
@@ -39,7 +42,19 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
       let loginModel = Object.assign({}, this.loginForm.value)
-      this.authService.login(loginModel)
+      this.authService.login(loginModel).subscribe(
+        (response) => {
+          if(response.success){
+            this.localStorageService.setToken(response.data.token)
+            this.localStorageService.setTokenExpiration(response.data.expiration)
+            this.localStorageService.setRefreshToken(response.data.refreshToken)
+            this.userService.setCurrentUser()
+            this.router.navigate(["/"]);
+          }
+        },errorResponse => {
+          this.toastrService.error(errorResponse.error)
+        }
+      )
     }
   }
 }

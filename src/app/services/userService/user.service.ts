@@ -15,12 +15,13 @@ export class UserService {
   
   apiUrl = 'https://localhost:5001/api/users/';
   jwtHelper: JwtHelperService = new JwtHelperService();
-  constructor(private httpclient:HttpClient,private localStorageService : LocalStorageService) { }
+  constructor(private httpclient:HttpClient,private localStorageService : LocalStorageService) {
+    this.setCurrentUser()
+   }
 
-  _currentUser$ = new BehaviorSubject<User>(null);
+   _currentUser$ = new BehaviorSubject<User>(null);
 
   get currentUser$(): Observable<User> {
-    console.log(this._currentUser$)
     return this._currentUser$.asObservable();
   }
 

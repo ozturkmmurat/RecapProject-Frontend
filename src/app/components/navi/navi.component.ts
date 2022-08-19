@@ -15,8 +15,8 @@ export class NaviComponent implements OnInit {
 
   constructor(
     private localStorage: LocalStorageService,
-    private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private authService:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +37,7 @@ export class NaviComponent implements OnInit {
 
   logOut() {
     this.authService.logOut()
+    this.userService._currentUser$.next(null);
   }
 
 }

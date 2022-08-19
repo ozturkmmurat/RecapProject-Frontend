@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
+import { UserService } from '../userService/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
 
-  constructor() { }
+  constructor(
+  ) { }
+
+  signOut(){
+    this.removeTokens();
+  }
 
   getItem(key : string){
     return localStorage.getItem(key);
@@ -17,6 +23,12 @@ export class LocalStorageService {
 
   remove(key : string){
     return localStorage.removeItem(key);
+  }
+
+  removeTokens(){
+    localStorage.removeItem("token")
+    localStorage.removeItem("expiration")
+    localStorage.removeItem("refreshToken")
   }
 
   update(key : string, value : string){
@@ -43,6 +55,17 @@ export class LocalStorageService {
 
   getTokenExpiration(){
     return this.getItem("expiration")
+  }
+
+  setToken(value:string){
+    return localStorage.setItem("token",value)
+  }
+
+  setRefreshToken(value:string){
+    return localStorage.setItem("refreshToken",value)
+  }
+  setTokenExpiration(value:string){
+    return localStorage.setItem("expiration",value)
   }
 
 }
