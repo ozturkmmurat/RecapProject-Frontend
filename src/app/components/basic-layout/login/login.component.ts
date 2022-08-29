@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/models/user';
 import { UserForUpdateDto } from 'src/app/models/UserForUpdateDto';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { LocalStorageService } from 'src/app/services/localStorageService/local-storage.service';

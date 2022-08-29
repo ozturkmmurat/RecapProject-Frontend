@@ -93,7 +93,7 @@ export class AuthService {
   }
 
   refreshTokenLogin(tokenModel: string) {
-    let newPath = this.apiUrl + "refreshTokenLogin?refreshToken=" + tokenModel;
+    let newPath = this.apiUrl + "refreshTokenLogin?refreshToken=" + tokenModel
     return this.httpClient.post<SingleResponseModel<TokenModel>>(newPath, null)
   }
 
