@@ -28,11 +28,10 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError((error) => {
           console.log(error)
           if(error.status === 500){
-            this.toastrService.warning("Uzun süredir işlem yapmadığınız için hesaptan çıkış yapıldı")
            return  this.refreshToken(newRequest,next)
-           
           }
-          if(error.status === 403){
+          if(error.status === 401){
+            this.localStorageService.removeTokens();
             this.toastrService.error("Yetkiniz yok.")
           }
           return null
